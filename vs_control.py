@@ -42,6 +42,15 @@ class scaler_conection:
             "WXGA+" : "s output 19"
             }
 
+        self.comandSetSize = {
+            "FULL" : "s size 0",
+            "OVERSCAN" : "s size 1",
+            "UNDERSCAN" : "s size 2",
+            "LETTERBOX" : "s size 3",
+            "PANSCAN" : "s size 4",
+            "FOLLOW" : "s size 5"
+            }
+
 
 
     def conect(self):
