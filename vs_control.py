@@ -51,6 +51,12 @@ class scaler_conection:
             "FOLLOW" : "s size 5"
             }
 
+        self.comandSetOSDNotice = {
+            "INFO" : "s osdnotice 0",
+            "OFF" : "s osdnotice 1",
+            "ON" : "s osdnotice 2"
+            }
+
 
 
     def conect(self):
