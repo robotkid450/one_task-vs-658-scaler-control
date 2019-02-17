@@ -56,6 +56,13 @@ class scaler_conection:
             "OFF" : "s osdnotice 1",
             "ON" : "s osdnotice 2"
             }
+            
+        self.comandSetPictureMode = {
+            "STANDARD" : "s picturemode 0",
+            "MOVIE" : "s picturemode 1",
+            "VIVID" : "s picturemode 1",
+            "USER" : "s picturemode 2"
+            }
 
 
 
