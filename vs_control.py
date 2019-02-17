@@ -3,8 +3,11 @@ import serial
 class scaler_conection:
 
     def __init__(self, serialport):
+        #Configure serial port 
+		#The scaler has a fixed port set up of 19200 8N1
         self.rawPort = serialport
         self.baud = 19200
+        
         self.comandSetPower = {
             "Off" : "s power 0",
             "On" : "s power 1"
@@ -64,6 +67,10 @@ class scaler_conection:
             "USER" : "s picturemode 2"
             }
 
+		self.comandSetAudioMute = {
+			"OFF" : "s audiomute 0",
+			"ON" : "s audiomute 1"
+			}
 
 
     def conect(self):
