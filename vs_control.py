@@ -4,7 +4,7 @@ class scaler_conection:
 
     def __init__(self, serialport):
         #Configure serial port 
-		#The scaler has a fixed port set up of 19200 8N1
+        #The scaler has a fixed port set up of 19200 8N1
         self.rawPort = serialport
         self.baud = 19200
         
@@ -67,10 +67,17 @@ class scaler_conection:
             "USER" : "s picturemode 2"
             }
 
-		self.comandSetAudioMute = {
-			"OFF" : "s audiomute 0",
-			"ON" : "s audiomute 1"
-			}
+        self.comandSetAudioMute = {
+            "OFF" : "s audiomute 0",
+            "ON" : "s audiomute 1"
+            }
+        
+        self.comandSetAudioDelay = {
+            "OFF" : "s audiodelay 0",
+            "40MS" : "s audiodelay 1",
+            "110MS" : "s audiodelay 2",
+            "150MS" : "s audiodelay 3"
+            }
 
 
     def conect(self):
