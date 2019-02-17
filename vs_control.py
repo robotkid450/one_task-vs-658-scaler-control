@@ -9,6 +9,7 @@ class scaler_conection:
         self.rawPort = serialport
         self.baud = 19200
 
+        # Translation tables.
         self.comandSetPower = {
             "Off": "s power 0",
             "On": "s power 1"
