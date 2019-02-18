@@ -1,7 +1,7 @@
 import serial
 
 
-class scaler_conection:
+class scaler_connection:
 
     def __init__(self, serialport):
         # Configure serial port.
@@ -10,12 +10,12 @@ class scaler_conection:
         self.baud = 19200
 
         # Translation tables.
-        self.comandSetPower = {
+        self.commandSetPower = {
             "Off": "s power 0",
             "On": "s power 1"
             }
 
-        self.comandSetSource = {
+        self.commandSetSource = {
             "CV": "s source 0",
             "SV": "s source 1",
             "COMP": "s source 2",
@@ -24,7 +24,7 @@ class scaler_conection:
             "HDMI": "s source 4"
             }
 
-        self.comandSetOutput = {
+        self.commandSetOutput = {
             "NATIVE": "s output 0",
             "VGA": "s output 1",
             "SVGA": "s output 2",
@@ -47,7 +47,7 @@ class scaler_conection:
             "WXGA+": "s output 19"
             }
 
-        self.comandSetSize = {
+        self.commandSetSize = {
             "FULL": "s size 0",
             "OVERSCAN": "s size 1",
             "UNDERSCAN": "s size 2",
@@ -56,32 +56,32 @@ class scaler_conection:
             "FOLLOW": "s size 5"
             }
 
-        self.comandSetOSDNotice = {
+        self.commandSetOSDNotice = {
             "INFO": "s osdnotice 0",
             "OFF": "s osdnotice 1",
             "ON": "s osdnotice 2"
             }
 
-        self.comandSetPictureMode = {
+        self.commandSetPictureMode = {
             "STANDARD": "s picturemode 0",
             "MOVIE": "s picturemode 1",
             "VIVID": "s picturemode 1",
             "USER": "s picturemode 2"
             }
 
-        self.comandSetAudioMute = {
+        self.commandSetAudioMute = {
             "OFF": "s audiomute 0",
             "ON": "s audiomute 1"
             }
 
-        self.comandSetAudioDelay = {
+        self.commandSetAudioDelay = {
             "OFF": "s audiodelay 0",
             "40MS": "s audiodelay 1",
             "110MS": "s audiodelay 2",
             "150MS": "s audiodelay 3"
             }
 
-    def conect(self):
+    def connect(self):
         # attempts to connect to scaler
         try:
             self.port = serial.Serial(self.rawPort, self.baud, timeout=1)
