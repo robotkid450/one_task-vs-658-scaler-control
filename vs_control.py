@@ -81,7 +81,7 @@ class scaler_connection:
             "150MS": "s audiodelay 3"
             }
 
-    def connect(self):
+    def _connect(self):
         # attempts to connect to scaler
         try:
             self.port = serial.Serial(self.rawPort, self.baud, timeout=1)
@@ -92,12 +92,19 @@ class scaler_connection:
             # when I can test with hardware.
             return 1
 
-    def sendCommand(self, command):
+    def _sendCommand(self, command):
         # encodes and sends command to scaler
+        #print command
         self.port.write(command.encode())
 
-    def readRespone(self):
+    def _readRespone(self):
         # reads and decodes responce from scaler
         # returns responce
         responce = self.port.read(100).decode()
         return response
+
+    def setContrast(self, contrast):
+        return self._sendCommand("s contrast " + str(contrast))
+
+    def setHue(self, hue):
+        return self._sendCommand("s hue " + str(hue))
