@@ -11,8 +11,16 @@ class scaler_connection:
 
         # Translation tables.
         self.commandSetPower = {
+            "off": "s power 0",
             "Off": "s power 0",
-            "On": "s power 1"
+            "OFF": "s power 0",
+            "0": "s power 0",
+            0: "s power 0",
+            "on": "s power 1",
+            "On": "s power 1",
+            "ON": "s power 1",
+            "1": "s power 1",
+            1: "s power 1"
             }
 
         self.commandSetSource = {
@@ -94,14 +102,62 @@ class scaler_connection:
 
     def _sendCommand(self, command):
         # encodes and sends command to scaler
-        #print command
-        self.port.write(command.encode())
+        print command
+        #self.port.write(command.encode())
 
     def _readRespone(self):
         # reads and decodes responce from scaler
         # returns responce
         responce = self.port.read(100).decode()
         return response
+
+    def setPower(self, power):
+        if power in self.commandSetPower :
+            return self._sendCommand(self.commandSetPower[str(power)])
+        else:
+            print "invalid command "
+
+    def setSource(self, source):
+        if source in self.commandSetSource :
+            return self._sendCommand(self.commandSetSource[str(source)])
+        else:
+            print "invalid command "
+
+    def setOutput(self, output):
+        if output in self.commandSetOutput :
+            return self._sendCommand(self.commandSetOutput[str(output)])
+        else:
+            print "invalid command "
+
+    def setSize(self, size):
+        if size in self.commandSetSize :
+            return self._sendCommand(self.commandSetSize[str(size)])
+        else:
+            print "invalid command "
+
+    def setOSDNotice(self, notice):
+        if notice in self.commandSetOSDNotice :
+            return self._sendCommand(self.commandSetOSDNotice[str(notice)])
+        else:
+            print "invalid command "
+
+    def setPictureMode(self, mode):
+        if mode in self.commandSetPictureMode :
+            return self._sendCommand(self.commandSetPictureMode[str(mode)])
+        else:
+            print "invalid command "
+
+    def setAudioMute(self, mute):
+        if mute in self.commandSetAudioMute :
+            return self._sendCommand(self.commandSetAudioMute[str(mute)])
+        else:
+            print "invalid command "
+
+    def setAudioDelay(self, delay):
+        if delay in self.commandSetAudioDelay :
+            return self._sendCommand(self.commandSetAudioDelay[str(delay)])
+        else:
+            print "invalid command "
 
     def setContrast(self, contrast):
         return self._sendCommand("s contrast " + str(contrast))
