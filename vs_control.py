@@ -89,6 +89,20 @@ class scaler_connection:
             "150MS": "s audiodelay 3"
             }
 
+        self.commandSetNR = {
+            "OFF": "s nr 0",
+            "LOW": "s nr 1",
+            "MIDDLE": "s nr 2",
+            "HIGH": "s nr 3"
+            }
+
+        self.commandSetColorTemp = {
+            "NORMAL": "s colortemp 0",
+            "WARM": "s colortemp 1",
+            "COOL": "s colortemp 2",
+            "USER": "s colortemp 3"
+            }
+
     def _connect(self):
         # attempts to connect to scaler
         try:
@@ -103,7 +117,7 @@ class scaler_connection:
     def _sendCommand(self, command):
         # encodes and sends command to scaler
         print command
-        #self.port.write(command.encode())
+        # self.port.write(command.encode())
 
     def _readRespone(self):
         # reads and decodes responce from scaler
@@ -112,55 +126,112 @@ class scaler_connection:
         return response
 
     def setPower(self, power):
-        if power in self.commandSetPower :
+        if power in self.commandSetPower:
             return self._sendCommand(self.commandSetPower[str(power)])
         else:
             print "invalid command "
 
     def setSource(self, source):
-        if source in self.commandSetSource :
+        if source in self.commandSetSource:
             return self._sendCommand(self.commandSetSource[str(source)])
         else:
             print "invalid command "
 
     def setOutput(self, output):
-        if output in self.commandSetOutput :
+        if output in self.commandSetOutput:
             return self._sendCommand(self.commandSetOutput[str(output)])
         else:
             print "invalid command "
 
     def setSize(self, size):
-        if size in self.commandSetSize :
+        if size in self.commandSetSize:
             return self._sendCommand(self.commandSetSize[str(size)])
         else:
             print "invalid command "
 
     def setOSDNotice(self, notice):
-        if notice in self.commandSetOSDNotice :
+        if notice in self.commandSetOSDNotice:
             return self._sendCommand(self.commandSetOSDNotice[str(notice)])
         else:
             print "invalid command "
 
     def setPictureMode(self, mode):
-        if mode in self.commandSetPictureMode :
+        if mode in self.commandSetPictureMode:
             return self._sendCommand(self.commandSetPictureMode[str(mode)])
         else:
             print "invalid command "
 
     def setAudioMute(self, mute):
-        if mute in self.commandSetAudioMute :
+        if mute in self.commandSetAudioMute:
             return self._sendCommand(self.commandSetAudioMute[str(mute)])
         else:
             print "invalid command "
 
     def setAudioDelay(self, delay):
-        if delay in self.commandSetAudioDelay :
+        if delay in self.commandSetAudioDelay:
             return self._sendCommand(self.commandSetAudioDelay[str(delay)])
+        else:
+            print "invalid command "
+
+    def setNR(self, nr):
+        if nr in self.commandSetNR:
+            return self._sendCommand(self.commandSetNR[str(nr)])
+        else:
+            print "invalid command "
+
+    def setColorTemp(self, ct):
+        if ct in self.commandSetColorTemp:
+            return self._sendCommand(self.commandSetColorTemp[str(ct)])
         else:
             print "invalid command "
 
     def setContrast(self, contrast):
         return self._sendCommand("s contrast " + str(contrast))
 
+    def setBrightness(self, brightness):
+        return self._sendCommand("s brightness " + str(brightness))
+
     def setHue(self, hue):
         return self._sendCommand("s hue " + str(hue))
+
+    def setSaturation(self, sat):
+        return self._sendCommand("s saturation " + str(sat))
+
+    def setSharpness(self, sharp):
+        return self._sendCommand("s sharpness " + str(sharp))
+
+    def setPCHPosition(self, pch):
+        return self._sendCommand("s pchposition " + str(pch))
+
+    def setPCVPosition(self, pcv):
+        return self._sendCommand("s pcvposition " + str(pcv))
+
+    def setPCClock(self, pcclock):
+        return self._sendCommand("s pcclock " + str(pcclock))
+
+    def setPCPhase(self, pcphase):
+        return self._sendCommand("s pchphase " + str(pcphase))
+
+    def setRed(self, red):
+        return self._sendCommand("s red " + str(red))
+
+    def setGreen(self, green):
+        return self._sendCommand("s green " + str(green))
+
+    def setBlue(self, blue):
+        return self._sendCommand("s blue " + str(blue))
+
+    def setOSDHPosition(self, osdh):
+        return self._sendCommand("s osdhposition " + str(osdh))
+
+    def setOSDVPosition(self, osdv):
+        return self._sendCommand("s osdvposition " + str(osdv))
+
+    def setOSDTimeout(self, timeout):
+        return self._sendCommand("s osdtimeout " + str(timeout))
+
+    def setOSDBackground(self, osdbackground):
+        return self._sendCommand("s osdbackground " + str(osdbackground))
+
+    def setReset(self):
+        return self._sendCommand("s reset 1")
