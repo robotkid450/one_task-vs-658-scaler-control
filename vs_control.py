@@ -9,7 +9,7 @@ class scaler_connection:
         self.rawPort = serialport
         self.baud = 19200
 
-        self.serialConnecred = 0
+        self.serialConnected = 0
 
         # Translation tables.
         self.commandSetPower = {
@@ -153,6 +153,12 @@ class scaler_connection:
 
         return msg
 
+    def _limitCheck(self, value, lower=0, upper=100):
+        if value >= lower and value <= upper:
+            return True
+        else:
+            return False
+
     def setPower(self, power):
         if power in self.commandSetPower:
             return self._sendCommand(self.commandSetPower[str(power)])
@@ -214,52 +220,116 @@ class scaler_connection:
             print "invalid command "
 
     def setContrast(self, contrast):
-        return self._sendCommand("s contrast " + str(contrast))
+        if self._limitCheck(contrast):
+            return self._sendCommand("s contrast " + str(contrast))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setBrightness(self, brightness):
-        return self._sendCommand("s brightness " + str(brightness))
+        if self._limitCheck(brightness):
+            return self._sendCommand("s brightness " + str(brightness))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setHue(self, hue):
-        return self._sendCommand("s hue " + str(hue))
+        if self._limitCheck(hue):
+            return self._sendCommand("s hue " + str(hue))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setSaturation(self, sat):
-        return self._sendCommand("s saturation " + str(sat))
+        if self._limitCheck(sat):
+            return self._sendCommand("s saturation " + str(sat))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setSharpness(self, sharp):
-        return self._sendCommand("s sharpness " + str(sharp))
+        if self._limitCheck(sharp):
+            return self._sendCommand("s sharpness " + str(sharp))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setPCHPosition(self, pch):
-        return self._sendCommand("s pchposition " + str(pch))
+        if self._limitCheck(pch):
+            return self._sendCommand("s pchposition " + str(pch))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setPCVPosition(self, pcv):
-        return self._sendCommand("s pcvposition " + str(pcv))
+        if self._limitCheck(pcv):
+            return self._sendCommand("s pcvposition " + str(pcv))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setPCClock(self, pcclock):
-        return self._sendCommand("s pcclock " + str(pcclock))
+        if self._limitCheck(pcclock):
+            return self._sendCommand("s pcclock " + str(pcclock))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setPCPhase(self, pcphase):
-        return self._sendCommand("s pchphase " + str(pcphase))
+        if self._limitCheck(pcphase, 0, 63):
+            return self._sendCommand("s pchphase " + str(pcphase))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setRed(self, red):
-        return self._sendCommand("s red " + str(red))
+        if self._limitCheck(red):
+            return self._sendCommand("s red " + str(red))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setGreen(self, green):
-        return self._sendCommand("s green " + str(green))
+        if self._limitCheck(green):
+            return self._sendCommand("s green " + str(green))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setBlue(self, blue):
-        return self._sendCommand("s blue " + str(blue))
+        if self._limitCheck(blue):
+            return self._sendCommand("s blue " + str(blue))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setOSDHPosition(self, osdh):
-        return self._sendCommand("s osdhposition " + str(osdh))
+        if self._limitCheck(osdh):
+            return self._sendCommand("s osdhposition " + str(osdh))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setOSDVPosition(self, osdv):
-        return self._sendCommand("s osdvposition " + str(osdv))
+        if self._limitCheck(osdv):
+            return self._sendCommand("s osdvposition " + str(osdv))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setOSDTimeout(self, timeout):
-        return self._sendCommand("s osdtimeout " + str(timeout))
+        if self._limitCheck(timeout):
+            return self._sendCommand("s osdtimeout " + str(timeout))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setOSDBackground(self, osdbackground):
-        return self._sendCommand("s osdbackground " + str(osdbackground))
+        if self._limitCheck(osdbackground, 0, 8):
+            return self._sendCommand("s osdbackground " + str(osdbackground))
+        else:
+            print("error value out of bounds")
+            return -5
 
     def setReset(self):
         return self._sendCommand("s reset 1")
