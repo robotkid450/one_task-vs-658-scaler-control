@@ -9,6 +9,9 @@ class scaler_connection:
         self.rawPort = serialport
         self.baud = 19200
 
+        self.serialConnecred = 0
+
+
         # Translation tables.
         self.commandSetPower = {
             "off": "s power 0",
@@ -107,17 +110,36 @@ class scaler_connection:
         # attempts to connect to scaler
         try:
             self.port = serial.Serial(self.rawPort, self.baud, timeout=1)
-            return 0
 
         except:
             # will add actual error condition later,
             # when I can test with hardware.
-            return 1
+            self.serialConnected = -1
+            print("error connecting to device")
+
+        else:
+            self.serialConnecred = 1
+
+
+    def _disconnect(self):
+        # disconects serial port
+        try:
+            self.port.close()
+        except:
+            self.serialConnected = -1
+            print("error disconecting ??")
+        else:
+            print("serial disconected")
+            self.serialConnected = 0
+
+
+
 
     def _sendCommand(self, command):
+        command = command + '/r'
         # encodes and sends command to scaler
         print command
-        # self.port.write(command.encode())
+        self.port.write(command.encode())
 
     def _readRespone(self):
         # reads and decodes responce from scaler
