@@ -1,4 +1,5 @@
 import serial
+import time
 
 
 class scaler_connection:
@@ -152,6 +153,19 @@ class scaler_connection:
                 break
 
         return msg
+
+
+    def _readresponce(self):
+        responceRaw = self._readline()
+        trash, command, data = responceRaw.split(' ')
+        return data
+
+    def _getStatus(self, command):
+        self._sendCommand("r " + command)
+        output = self._readresponce()
+        return output
+
+
 
     def _limitCheck(self, value, lower=0, upper=100):
         if value >= lower and value <= upper:
@@ -333,3 +347,10 @@ class scaler_connection:
 
     def setReset(self):
         return self._sendCommand("s reset 1")
+
+    def getPower(self):
+        self._sendCommand("r power")
+        output = self._readresponce()
+        return output
+
+
