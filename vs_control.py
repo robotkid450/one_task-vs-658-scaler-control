@@ -136,7 +136,7 @@ class scaler_connection:
     def _sendCommand(self, command):
         if self.serialConnected != 1:
             self._connect()
-        command = command + '/r'
+        command = command + '\r'
         # encodes and sends command to scaler
         print command
         self.port.write(command.encode())
