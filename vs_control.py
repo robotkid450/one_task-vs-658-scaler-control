@@ -15,9 +15,9 @@ class scaler_connection:
         # Translation tables.
         self.translationTableSet = {
             "power" : {
-                "off": "s power 0",
+                "OFF": "s power 0",
                 "0": "s power 0",
-                "on": "s power 1",
+                "ON": "s power 1",
                 "1": "s power 1"},
             "source" : {
                 "CV": "s source 0",
@@ -84,104 +84,6 @@ class scaler_connection:
             }
 
 
-
-
-
-
-
-        self.commandSetPower = {
-            "off": "s power 0",
-            "Off": "s power 0",
-            "OFF": "s power 0",
-            "0": "s power 0",
-            0: "s power 0",
-            "on": "s power 1",
-            "On": "s power 1",
-            "ON": "s power 1",
-            "1": "s power 1",
-            1: "s power 1"
-            }
-
-        self.commandSetSource = {
-            "CV": "s source 0",
-            "YC": "s source 1",
-            "COMP": "s source 2",
-            "PC": "s source 3",
-            "VGA": "s source 3",
-            "HDMI": "s source 4"
-            }
-
-        self.commandSetOutput = {
-            "NATIVE": "s output 0",
-            "VGA": "s output 1",
-            "SVGA": "s output 2",
-            "XGA": "s output 3",
-            "SXGA": "s output 4",
-            "UXGA": "s output 5",
-            "480I": "s output 6",
-            "480P": "s output 7",
-            "720P60": "s output 8",
-            "1080I60": "s output 9",
-            "1080P60": "s output 10",
-            "576I60": "s output 11",
-            "576P60": "s output 12",
-            "720P50": "s output 13",
-            "1080I50": "s output 14",
-            "1080P50": "s output 15",
-            "WXGA": "s output 16",
-            "WSXGA": "s output 17",
-            "WUXGA": "s output 18",
-            "WXGA+": "s output 19"
-            }
-
-        self.commandSetSize = {
-            "FULL": "s size 0",
-            "OVERSCAN": "s size 1",
-            "UNDERSCAN": "s size 2",
-            "LETTERBOX": "s size 3",
-            "PANSCAN": "s size 4",
-            "FOLLOW": "s size 5"
-            }
-
-        self.commandSetOSDNotice = {
-            "INFO": "s osdnotice 0",
-            "OFF": "s osdnotice 1",
-            "ON": "s osdnotice 2"
-            }
-
-        self.commandSetPictureMode = {
-            "STANDARD": "s picturemode 0",
-            "MOVIE": "s picturemode 1",
-            "VIVID": "s picturemode 1",
-            "USER": "s picturemode 2"
-            }
-
-        self.commandSetAudioMute = {
-            "OFF": "s audiomute 0",
-            "ON": "s audiomute 1"
-            }
-
-        self.commandSetAudioDelay = {
-            "OFF": "s audiodelay 0",
-            "40MS": "s audiodelay 1",
-            "110MS": "s audiodelay 2",
-            "150MS": "s audiodelay 3"
-            }
-
-        self.commandSetNR = {
-            "OFF": "s nr 0",
-            "LOW": "s nr 1",
-            "MIDDLE": "s nr 2",
-            "HIGH": "s nr 3"
-            }
-
-        self.commandSetColorTemp = {
-            "NORMAL": "s colortemp 0",
-            "WARM": "s colortemp 1",
-            "COOL": "s colortemp 2",
-            "USER": "s colortemp 3"
-            }
-
     def _connect(self):
         # attempts to connect to scaler
         try:
@@ -238,9 +140,9 @@ class scaler_connection:
         output = self._readresponce()
         return output
 
-    def _setCommand(self, command, option):
+    def _setCommandTable(self, command, option):
         command = str(command).lower()
-        option = str(option).lower()
+        option = str(option).upper()
         if command in self.translationTableSet:
             if option in self.translationTableSet[command]:
                 self._sendCommand(self.translationTableSet[command][option])
@@ -252,8 +154,6 @@ class scaler_connection:
 
         return self._readresponce()
 
-
-
     def _limitCheck(self, value, lower=0, upper=100):
         if value >= lower and value <= upper:
             return True
@@ -261,67 +161,34 @@ class scaler_connection:
             return False
 
     def setPower(self, power):
-        if power in self.commandSetPower:
-            self._sendCommand(self.commandSetPower[str(power)])
-        else:
-            print "invalid command "
-
-        self._readresponce()
-
+        return self._setCommandTable('power', power)
 
     def setSource(self, source):
-        if source in self.commandSetSource:
-            return self._sendCommand(self.commandSetSource[str(source)])
-        else:
-            print "invalid command "
+        return self._setCommandTable('source', source)
 
     def setOutput(self, output):
-        if output in self.commandSetOutput:
-            return self._sendCommand(self.commandSetOutput[str(output)])
-        else:
-            print "invalid command "
+        return self._setCommandTable('output', output)
 
     def setSize(self, size):
-        if size in self.commandSetSize:
-            return self._sendCommand(self.commandSetSize[str(size)])
-        else:
-            print "invalid command "
+        return self._setCommandTable('size', size)
 
-    def setOSDNotice(self, notice):
-        if notice in self.commandSetOSDNotice:
-            return self._sendCommand(self.commandSetOSDNotice[str(notice)])
-        else:
-            print "invalid command "
+    def setOSDNotice(self, osd):
+        return self._setCommandTable('osd',osd )
 
     def setPictureMode(self, mode):
-        if mode in self.commandSetPictureMode:
-            return self._sendCommand(self.commandSetPictureMode[str(mode)])
-        else:
-            print "invalid command "
+        return self._setCommandTable('mode', mode)
 
     def setAudioMute(self, mute):
-        if mute in self.commandSetAudioMute:
-            return self._sendCommand(self.commandSetAudioMute[str(mute)])
-        else:
-            print "invalid command "
+        return self._setCommandTable('mute', mute)
 
     def setAudioDelay(self, delay):
-        if delay in self.commandSetAudioDelay:
-            return self._sendCommand(self.commandSetAudioDelay[str(delay)])
-        else:
-            print "invalid command "
+        return self._setCommandTable('delay', delay)
 
     def setNR(self, nr):
-        if nr in self.commandSetNR:
-            return self._sendCommand(self.commandSetNR[str(nr)])
-        else:
-            print "invalid command "
+        return self._setCommandTable('nr', nr)
 
-    def setColorTemp(self, ct):
-        if ct in self.commandSetColorTemp:
-            return self._sendCommand(self.commandSetColorTemp[str(ct)])
-        else:
-            print "invalid command "
+    def setColorTemp(self, temp):
+        return self._setCommandTable('temp', temp)
 
     def setContrast(self, contrast):
         if self._limitCheck(contrast):
