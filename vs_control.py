@@ -16,15 +16,9 @@ class scaler_connection:
         self.translationTableSet = {
             "power" : {
                 "off": "s power 0",
-                "Off": "s power 0",
-                "OFF": "s power 0",
                 "0": "s power 0",
-                0: "s power 0",
                 "on": "s power 1",
-                "On": "s power 1",
-                "ON": "s power 1",
-                "1": "s power 1",
-                1: "s power 1" },
+                "1": "s power 1"},
             "source" : {
                 "CV": "s source 0",
                 "YC": "s source 1",
@@ -223,22 +217,9 @@ class scaler_connection:
         # encodes and sends command to scaler
         print command
         self.port.write(command.encode())
-        #print self._readline()
 
     def _readline(self):
-        '''# reads from input buffer until it reaches '\r' (carage return)
-        msg = ''
-        charsAvalible = self.port.in_waiting
-        for num in range(charsAvalible):
-            char = self.port.read().decode()
-            if char != '\x0D':
-                msg = msg + char
-            else:
-                break
-
-        return msg'''
-
-        time.sleep(.2)
+        time.sleep(.5)
         print self.port.inWaiting()
         msg = self.port.read(self.port.inWaiting())
 
@@ -257,8 +238,20 @@ class scaler_connection:
         output = self._readresponce()
         return output
 
-   # def _setCommand(self, command):
-   #     pass
+    def _setCommand(self, command, option):
+        command = str(command).lower()
+        option = str(option).lower()
+        if command in self.translationTableSet:
+            if option in self.translationTableSet[command]:
+                self._sendCommand(self.translationTableSet[command][option])
+            else:
+                # Create proper exception
+                raise ValueError('invalid option')
+        else:
+            raise ValueError('invalid command')
+
+        return self._readresponce()
+
 
 
     def _limitCheck(self, value, lower=0, upper=100):
