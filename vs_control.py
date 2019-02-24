@@ -13,6 +13,88 @@ class scaler_connection:
         self.serialConnected = 0
 
         # Translation tables.
+        self.translationTableSet = {
+            "power" : {
+                "off": "s power 0",
+                "Off": "s power 0",
+                "OFF": "s power 0",
+                "0": "s power 0",
+                0: "s power 0",
+                "on": "s power 1",
+                "On": "s power 1",
+                "ON": "s power 1",
+                "1": "s power 1",
+                1: "s power 1" },
+            "source" : {
+                "CV": "s source 0",
+                "YC": "s source 1",
+                "COMP": "s source 2",
+                "PC": "s source 3",
+                "VGA": "s source 3",
+                "HDMI": "s source 4" },
+            "output" : {
+                "NATIVE": "s output 0",
+                "VGA": "s output 1",
+                "SVGA": "s output 2",
+                "XGA": "s output 3",
+                "SXGA": "s output 4",
+                "UXGA": "s output 5",
+                "480I": "s output 6",
+                "480P": "s output 7",
+                "720P60": "s output 8",
+                "1080I60": "s output 9",
+                "1080P60": "s output 10",
+                "576I60": "s output 11",
+                "576P60": "s output 12",
+                "720P50": "s output 13",
+                "1080I50": "s output 14",
+                "1080P50": "s output 15",
+                "WXGA": "s output 16",
+                "WSXGA": "s output 17",
+                "WUXGA": "s output 18",
+                "WXGA+": "s output 19" },
+            "size" : {
+                "FULL": "s size 0",
+                "OVERSCAN": "s size 1",
+                "UNDERSCAN": "s size 2",
+                "LETTERBOX": "s size 3",
+                "PANSCAN": "s size 4",
+                "FOLLOW": "s size 5" },
+            "osd" : {
+                "INFO": "s osdnotice 0",
+                "OFF": "s osdnotice 1",
+                "ON": "s osdnotice 2" },
+            "mode" : {
+                "STANDARD": "s picturemode 0",
+                "MOVIE": "s picturemode 1",
+                "VIVID": "s picturemode 1",
+                "USER": "s picturemode 2" },
+            "mute" : {
+                "OFF": "s audiomute 0",
+                "ON": "s audiomute 1" },
+            "delay" : {
+                "OFF": "s audiodelay 0",
+                "40MS": "s audiodelay 1",
+                "110MS": "s audiodelay 2",
+                "150MS": "s audiodelay 3" },
+            "nr" : {
+                "OFF": "s nr 0",
+                "LOW": "s nr 1",
+                "MIDDLE": "s nr 2",
+                "HIGH": "s nr 3" },
+            "temp" : {
+                "NORMAL": "s colortemp 0",
+                "WARM": "s colortemp 1",
+                "COOL": "s colortemp 2",
+                "USER": "s colortemp 3" }
+            }
+
+
+
+
+
+
+
         self.commandSetPower = {
             "off": "s power 0",
             "Off": "s power 0",
@@ -175,6 +257,8 @@ class scaler_connection:
         output = self._readresponce()
         return output
 
+   # def _setCommand(self, command):
+   #     pass
 
 
     def _limitCheck(self, value, lower=0, upper=100):
