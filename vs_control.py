@@ -141,10 +141,10 @@ class scaler_connection:
         # encodes and sends command to scaler
         print command
         self.port.write(command.encode())
-        print self._readline()
+        #print self._readline()
 
     def _readline(self):
-        # reads from input buffer until it reaches '\r' (carage return)
+        '''# reads from input buffer until it reaches '\r' (carage return)
         msg = ''
         charsAvalible = self.port.in_waiting
         for num in range(charsAvalible):
@@ -154,12 +154,20 @@ class scaler_connection:
             else:
                 break
 
-        return msg
+        return msg'''
 
+        time.sleep(.2)
+        print self.port.inWaiting()
+        msg = self.port.read(self.port.inWaiting())
+
+        return msg
 
     def _readresponce(self):
         responceRaw = self._readline()
-        trash, command, data = responceRaw.split(' ')
+        responceRaw = responceRaw[2:-2]
+        print "responceRaw"
+        print responceRaw
+        data = responceRaw.split(' ')
         return data
 
     def _getStatus(self, command):
@@ -177,9 +185,12 @@ class scaler_connection:
 
     def setPower(self, power):
         if power in self.commandSetPower:
-            return self._sendCommand(self.commandSetPower[str(power)])
+            self._sendCommand(self.commandSetPower[str(power)])
         else:
             print "invalid command "
+
+        self._readresponce()
+
 
     def setSource(self, source):
         if source in self.commandSetSource:
