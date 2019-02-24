@@ -83,6 +83,11 @@ class scaler_connection:
                 "USER": "s colortemp 3" }
             }
 
+        self.valueCommands = [ 'contrast', 'brightness', 'hue',
+            'saturation', 'sharpness', 'pchposition', 'pcvposition',
+            'pcclock', 'pchphase', 'red', 'green', 'blue', 'osdhposition',
+            'osdvposition', 'osdtimeout', 'osdbackground' ]
+
 
     def _connect(self):
         # attempts to connect to scaler
@@ -123,7 +128,7 @@ class scaler_connection:
     def _readline(self):
         time.sleep(.5)
         print self.port.inWaiting()
-        msg = self.port.read(self.port.inWaiting())
+        msg = self.port.read(self.port.inWaiting() + 2)
 
         return msg
 
@@ -151,6 +156,17 @@ class scaler_connection:
                 raise ValueError('invalid option')
         else:
             raise ValueError('invalid command')
+
+        return self._readresponce()
+
+    def _setCommandValue(self,command, value, lower=0, upper=100):
+        if str(command).lower() in self.valueCommands:
+            if self._limitCheck(value, lower, upper):
+                self._sendCommand("s " + str(command).lower() + ' ' + str(value))
+            else:
+                raise ValueError("Value out of bounds.")
+        else:
+            raise ValueError("Invalid command")
 
         return self._readresponce()
 
@@ -191,11 +207,7 @@ class scaler_connection:
         return self._setCommandTable('temp', temp)
 
     def setContrast(self, contrast):
-        if self._limitCheck(contrast):
-            return self._sendCommand("s contrast " + str(contrast))
-        else:
-            print("error value out of bounds")
-            return -5
+        return self._setCommandValue('contrast', contrast)
 
     def setBrightness(self, brightness):
         if self._limitCheck(brightness):
