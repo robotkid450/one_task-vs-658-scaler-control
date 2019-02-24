@@ -23,6 +23,18 @@
 #
 
 
+from Tkinter import *
+
+class Application(Frame):
+    def __init__(self, master=None):
+        Frame.__init__(self, master)
+        self.pack()
+        self.createWidgets()
+        
+    def createWidgets(self):
+        self.powerON = Button(self)
+        #self.
+
 def main(args):
     return 0
 

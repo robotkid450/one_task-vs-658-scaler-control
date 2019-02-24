@@ -28,7 +28,7 @@ class scaler_connection:
 
         self.commandSetSource = {
             "CV": "s source 0",
-            "SV": "s source 1",
+            "YC": "s source 1",
             "COMP": "s source 2",
             "PC": "s source 3",
             "VGA": "s source 3",
@@ -135,11 +135,13 @@ class scaler_connection:
 
     def _sendCommand(self, command):
         if self.serialConnected != 1:
+            print "not connected"
             self._connect()
         command = command + '\r'
         # encodes and sends command to scaler
         print command
         self.port.write(command.encode())
+        print self._readline()
 
     def _readline(self):
         # reads from input buffer until it reaches '\r' (carage return)
