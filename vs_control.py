@@ -10,6 +10,8 @@ class scaler_connection:
         self.rawPort = serialport
         self.baud = 19200
 
+        self.port = None
+
         self.serialConnected = 0
 
         # Translation tables.
@@ -25,7 +27,7 @@ class scaler_connection:
                 "COMP": "s source 2",
                 "PC": "s source 3",
                 "VGA": "s source 3",
-                "HDMI": "s source 4" },
+                "HDMI": "s source 4"},
             "output" : {
                 "NATIVE": "s output 0",
                 "VGA": "s output 1",
@@ -46,47 +48,47 @@ class scaler_connection:
                 "WXGA": "s output 16",
                 "WSXGA": "s output 17",
                 "WUXGA": "s output 18",
-                "WXGA+": "s output 19" },
+                "WXGA+": "s output 19"},
             "size" : {
                 "FULL": "s size 0",
                 "OVERSCAN": "s size 1",
                 "UNDERSCAN": "s size 2",
                 "LETTERBOX": "s size 3",
                 "PANSCAN": "s size 4",
-                "FOLLOW": "s size 5" },
+                "FOLLOW": "s size 5"},
             "osd" : {
                 "INFO": "s osdnotice 0",
                 "OFF": "s osdnotice 1",
-                "ON": "s osdnotice 2" },
+                "ON": "s osdnotice 2"},
             "mode" : {
                 "STANDARD": "s picturemode 0",
                 "MOVIE": "s picturemode 1",
                 "VIVID": "s picturemode 1",
-                "USER": "s picturemode 2" },
+                "USER": "s picturemode 2"},
             "mute" : {
                 "OFF": "s audiomute 0",
-                "ON": "s audiomute 1" },
+                "ON": "s audiomute 1"},
             "delay" : {
                 "OFF": "s audiodelay 0",
                 "40MS": "s audiodelay 1",
                 "110MS": "s audiodelay 2",
-                "150MS": "s audiodelay 3" },
+                "150MS": "s audiodelay 3"},
             "nr" : {
                 "OFF": "s nr 0",
                 "LOW": "s nr 1",
                 "MIDDLE": "s nr 2",
-                "HIGH": "s nr 3" },
+                "HIGH": "s nr 3"},
             "temp" : {
                 "NORMAL": "s colortemp 0",
                 "WARM": "s colortemp 1",
                 "COOL": "s colortemp 2",
-                "USER": "s colortemp 3" }
+                "USER": "s colortemp 3"}
             }
 
-        self.valueCommands = [ 'contrast', 'brightness', 'hue',
-            'saturation', 'sharpness', 'pchposition', 'pcvposition',
-            'pcclock', 'pchphase', 'red', 'green', 'blue', 'osdhposition',
-            'osdvposition', 'osdtimeout', 'osdbackground' ]
+        self.valueCommands = ['contrast', 'brightness', 'hue',
+                              'saturation', 'sharpness', 'pchposition', 'pcvposition',
+                              'pcclock', 'pchphase', 'red', 'green', 'blue', 'osdhposition',
+                              'osdvposition', 'osdtimeout', 'osdbackground']
 
 
     def _connect(self):
@@ -98,7 +100,7 @@ class scaler_connection:
             # will add actual error condition later,
             # when I can test with hardware.
             self.serialConnected = -1
-            print("error connecting to device")
+            print "error connecting to device"
 
         else:
             self.serialConnected = 1
@@ -111,9 +113,9 @@ class scaler_connection:
             self.port.close()
         except:
             self.serialConnected = -1
-            print("error disconecting ??")
+            print "error disconecting ??"
         else:
-            print("serial disconected")
+            print "serial disconected"
             self.serialConnected = 0
 
     def _sendCommand(self, command):
@@ -159,7 +161,7 @@ class scaler_connection:
 
         return self._readresponce()
 
-    def _setCommandValue(self,command, value, lower=0, upper=100):
+    def _setCommandValue(self, command, value, lower=0, upper=100):
         if str(command).lower() in self.valueCommands:
             if self._limitCheck(value, lower, upper):
                 self._sendCommand("s " + str(command).lower() + ' ' + str(value))
@@ -171,10 +173,7 @@ class scaler_connection:
         return self._readresponce()
 
     def _limitCheck(self, value, lower=0, upper=100):
-        if value >= lower and value <= upper:
-            return True
-        else:
-            return False
+        return bool(value >= lower and value <= upper)
 
     def setPower(self, power):
         return self._setCommandTable('power', power)
@@ -189,7 +188,7 @@ class scaler_connection:
         return self._setCommandTable('size', size)
 
     def setOSDNotice(self, osd):
-        return self._setCommandTable('osd',osd )
+        return self._setCommandTable('osd', osd)
 
     def setPictureMode(self, mode):
         return self._setCommandTable('mode', mode)
@@ -210,109 +209,49 @@ class scaler_connection:
         return self._setCommandValue('contrast', contrast)
 
     def setBrightness(self, brightness):
-        if self._limitCheck(brightness):
-            return self._sendCommand("s brightness " + str(brightness))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('brightness', brightness)
 
     def setHue(self, hue):
-        if self._limitCheck(hue):
-            return self._sendCommand("s hue " + str(hue))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('hue', hue)
 
     def setSaturation(self, sat):
-        if self._limitCheck(sat):
-            return self._sendCommand("s saturation " + str(sat))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('saturation', sat)
 
     def setSharpness(self, sharp):
-        if self._limitCheck(sharp):
-            return self._sendCommand("s sharpness " + str(sharp))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('sharpness', sharp)
 
     def setPCHPosition(self, pch):
-        if self._limitCheck(pch):
-            return self._sendCommand("s pchposition " + str(pch))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('pchposition', pch)
 
     def setPCVPosition(self, pcv):
-        if self._limitCheck(pcv):
-            return self._sendCommand("s pcvposition " + str(pcv))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('pcvposition', pcv)
 
     def setPCClock(self, pcclock):
-        if self._limitCheck(pcclock):
-            return self._sendCommand("s pcclock " + str(pcclock))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('pccloack', pcclock)
 
     def setPCPhase(self, pcphase):
-        if self._limitCheck(pcphase, 0, 63):
-            return self._sendCommand("s pchphase " + str(pcphase))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('pcphase', pcphase, 0, 63)
 
     def setRed(self, red):
-        if self._limitCheck(red):
-            return self._sendCommand("s red " + str(red))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('red', red)
 
     def setGreen(self, green):
-        if self._limitCheck(green):
-            return self._sendCommand("s green " + str(green))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('green', green)
 
     def setBlue(self, blue):
-        if self._limitCheck(blue):
-            return self._sendCommand("s blue " + str(blue))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('blue', blue)
 
     def setOSDHPosition(self, osdh):
-        if self._limitCheck(osdh):
-            return self._sendCommand("s osdhposition " + str(osdh))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('osdhposition', osdh)
 
     def setOSDVPosition(self, osdv):
-        if self._limitCheck(osdv):
-            return self._sendCommand("s osdvposition " + str(osdv))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('osdvposition', osdv)
 
     def setOSDTimeout(self, timeout):
-        if self._limitCheck(timeout):
-            return self._sendCommand("s osdtimeout " + str(timeout))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('osdtimeout', timeout)
 
     def setOSDBackground(self, osdbackground):
-        if self._limitCheck(osdbackground, 0, 8):
-            return self._sendCommand("s osdbackground " + str(osdbackground))
-        else:
-            print("error value out of bounds")
-            return -5
+        self._setCommandValue('osdbackground', osdbackground, 0, 8)
 
     def setReset(self):
         return self._sendCommand("s reset 1")
@@ -321,5 +260,4 @@ class scaler_connection:
         self._sendCommand("r power")
         output = self._readresponce()
         return output
-
 
