@@ -24,18 +24,48 @@
 
 
 from Tkinter import *
+import tkMessageBox
+import vs_control as vsc
 
 class Application(Frame):
     def __init__(self, master=None):
+        self.connected = False
+
         Frame.__init__(self, master)
         self.pack()
         self.createWidgets()
-        
+
     def createWidgets(self):
-        self.powerON = Button(self)
-        #self.
+        self.powerONButton = Button(self)
+        self.powerONButton['command'] = self.powerON
+        self.powerONButton['text'] = "Power ON"
+        self.powerONButton['fg'] = "green"
+        self.powerONButton.pack({"side": "left"})
+
+
+    def _connectSerial(self, port)
+        vsc.
+
+    def _powerConf(self, state):
+        message = "Are you sure?"
+        if state == 0:
+            Title = "Power OFF?"
+        elif state == 1:
+            Title = "Power ON?"
+        else:
+            return -1
+        return (tkMessageBox.askokcancel(Title, message))
+
+    def powerON(self):
+        confim = self._powerConf(0)
+        if confim == True:
+
 
 def main(args):
+    root = Tk()
+    app = Application(master=root)
+    app.mainloop()
+    root.destroy()
     return 0
 
 if __name__ == '__main__':

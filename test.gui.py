@@ -1,4 +1,5 @@
 from Tkinter import *
+#from tk import *
 
 class Application(Frame):
     def say_hi(self):
