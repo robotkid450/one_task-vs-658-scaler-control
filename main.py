@@ -37,14 +37,17 @@ class Application(Frame):
 
     def createWidgets(self):
         self.powerONButton = Button(self)
+        #self.
         self.powerONButton['command'] = self.powerON
         self.powerONButton['text'] = "Power ON"
         self.powerONButton['fg'] = "green"
         self.powerONButton.pack({"side": "left"})
 
 
-    def _connectSerial(self, port)
-        vsc.
+
+    def _connectSerial(self, port):
+        return 0
+        #vsc.
 
     def _powerConf(self, state):
         message = "Are you sure?"
@@ -59,6 +62,9 @@ class Application(Frame):
     def powerON(self):
         confim = self._powerConf(0)
         if confim == True:
+            print "true"
+        else:
+            print "false"
 
 
 def main(args):
