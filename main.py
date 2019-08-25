@@ -23,31 +23,60 @@
 #
 
 
-from Tkinter import *
+#from Tkinter import *
+import Tkinter as tk
 import tkMessageBox
 import vs_control as vsc
 
-class Application(Frame):
+class Application(tk.Frame):
     def __init__(self, master=None):
         self.connected = False
 
-        Frame.__init__(self, master)
-        self.pack()
+        self.root = tk.Frame.__init__(self, master)
+        self.grid()
         self.createWidgets()
 
     def createWidgets(self):
-        self.powerONButton = Button(self)
-        #self.
-        self.powerONButton['command'] = self.powerON
-        self.powerONButton['text'] = "Power ON"
-        self.powerONButton['fg'] = "green"
-        self.powerONButton.pack({"side": "left"})
+        self.powerFrame = tk.Frame(self.root)
+        self.powerFrame.grid(column=0, row=0)
+
+        self.powerFrame.powerONButton = tk.Button(self.powerFrame)
+        self.powerFrame.powerONButton['state'] = tk.DISABLED
+        self.powerFrame.powerONButton['command'] = self.powerON
+        self.powerFrame.powerONButton['text'] = "Power ON"
+        self.powerFrame.powerONButton['fg'] = "green"
+        self.powerFrame.powerONButton.grid(column=0, row=0)
+
+        self.powerFrame.powerOFFButton = tk.Button(self.powerFrame)
+        self.powerFrame.powerOFFButton['state'] = tk.DISABLED
+        #self.powerFrame.powerOFFButton['command'] = self.powerOFF
+        self.powerFrame.powerOFFButton['text'] = "Power OFF"
+        self.powerFrame.powerOFFButton['fg'] = "red"
+        self.powerFrame.powerOFFButton.grid(column=1, row=0)
+
+
+
+
+        self.sourceFrame = tk.Frame(self.root)
+        self.sourceFrame.grid(column=0, row=1)
+
+        self.sourceFrame.labelName = tk.Label(self.sourceFrame, text="NOM")
+        self.sourceFrame.labelName.grid(column=0, row=1)
+
+        self.sourceFrame.mb = tk.Menubutton(self.sourceFrame, text="Source")
+        self.sourceFrame.mb.grid(column=0, row=2)
+
+        self.sourceFrame.mb.menu = tk.Menu(self.sourceFrame.mb)
+        self.sourceFrame.mb['menu'] = self.sourceFrame.mb.menu
+        self.sourceFrame.mb.menu.add_radiobutton(label='input 1')
+
+        #self.sourceFrame.mb.menu.grid()
+
 
 
 
     def _connectSerial(self, port):
         return 0
-        #vsc.
 
     def _powerConf(self, state):
         message = "Are you sure?"
@@ -68,10 +97,8 @@ class Application(Frame):
 
 
 def main(args):
-    root = Tk()
-    app = Application(master=root)
+    app = Application()
     app.mainloop()
-    root.destroy()
     return 0
 
 if __name__ == '__main__':
