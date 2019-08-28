@@ -41,15 +41,15 @@ class Application(tk.Frame):
         self.powerFrame.grid(column=0, row=0)
 
         self.powerFrame.powerONButton = tk.Button(self.powerFrame)
-        self.powerFrame.powerONButton['state'] = tk.DISABLED
+        #self.powerFrame.powerONButton['state'] = tk.DISABLED
         self.powerFrame.powerONButton['command'] = self.powerON
         self.powerFrame.powerONButton['text'] = "Power ON"
         self.powerFrame.powerONButton['fg'] = "green"
         self.powerFrame.powerONButton.grid(column=0, row=0)
 
         self.powerFrame.powerOFFButton = tk.Button(self.powerFrame)
-        self.powerFrame.powerOFFButton['state'] = tk.DISABLED
-        #self.powerFrame.powerOFFButton['command'] = self.powerOFF
+        #self.powerFrame.powerOFFButton['state'] = tk.DISABLED
+        self.powerFrame.powerOFFButton['command'] = self.powerOFF
         self.powerFrame.powerOFFButton['text'] = "Power OFF"
         self.powerFrame.powerOFFButton['fg'] = "red"
         self.powerFrame.powerOFFButton.grid(column=1, row=0)
@@ -61,14 +61,11 @@ class Application(tk.Frame):
         self.sourceFrame.grid(column=0, row=1)
 
         self.sourceFrame.labelName = tk.Label(self.sourceFrame, text="NOM")
-        self.sourceFrame.labelName.grid(column=0, row=1)
+        self.sourceFrame.labelName.grid(column=0, row=0)
+        self.sourceFrame.sourceSelect = tk.Radiobutton(self.sourceFrame)
+        self.sourceVar = tk.IntVar()
 
-        self.sourceFrame.mb = tk.Menubutton(self.sourceFrame, text="Source")
-        self.sourceFrame.mb.grid(column=0, row=2)
 
-        self.sourceFrame.mb.menu = tk.Menu(self.sourceFrame.mb)
-        self.sourceFrame.mb['menu'] = self.sourceFrame.mb.menu
-        self.sourceFrame.mb.menu.add_radiobutton(label='input 1')
 
         #self.sourceFrame.mb.menu.grid()
 
@@ -90,6 +87,13 @@ class Application(tk.Frame):
 
     def powerON(self):
         confim = self._powerConf(0)
+        if confim == True:
+            print "true"
+        else:
+            print "false"
+
+    def powerOFF(self):
+        confim = self._powerConf(1)
         if confim == True:
             print "true"
         else:
