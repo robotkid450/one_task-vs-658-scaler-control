@@ -1,9 +1,9 @@
-from Tkinter import *
+from tkinter import *
 #from tk import *
 
 class Application(Frame):
     def say_hi(self):
-        print "hi there, everyone!"
+        print("hi there, everyone!")
 
     def createWidgets(self):
         self.QUIT = Button(self)

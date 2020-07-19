@@ -27,10 +27,10 @@ while True:
     time.sleep(.1)
     if a.in_waiting > 0:
         line = _readline(a)
-        print 'line', line
+        print(('line', line))
 
         if line[0] == "S" :
-            print "set"
+            print("set")
 
         ''' # change status from power on
         if line == 'C00':

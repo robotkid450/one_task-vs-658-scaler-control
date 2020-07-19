@@ -4,7 +4,7 @@ import time
 a = vsc.scaler_connection('/dev/ttyUSB0')
 a._connect()
 
-print "power"
+print("power")
 
 a.setPower("off")
 
@@ -13,111 +13,111 @@ time.sleep(1)
 a.setPower("on")
 
 time.sleep(1)
-print "source"
+print("source")
 
 a.setSource('HDMI')
 
 time.sleep(1)
-print "output"
+print("output")
 
 a.setOutput('VGA')
 
 time.sleep(1)
-print "size"
+print("size")
 
 a.setSize('FULL')
 
 time.sleep(1)
-print "osd"
+print("osd")
 
 a.setOSDNotice('ON')
 
 
 time.sleep(1)
-print "picmode"
+print("picmode")
 
 a.setPictureMode('USER')
 
 time.sleep(1)
-print "mute"
+print("mute")
 
 a.setAudioMute('ON')
 
 time.sleep(1)
-print "delay"
+print("delay")
 
 a.setAudioDelay("OFF")
 
 time.sleep(1)
-print "nr"
+print("nr")
 a.setNR('LOW')
 
 time.sleep(1)
-print "ccol temp"
+print("ccol temp")
 a.setColorTemp("WARM")
 
 time.sleep(1)
-print "cont"
+print("cont")
 a.setContrast(5)
 
 time.sleep(1)
-print "bright"
+print("bright")
 a.setBrightness(5)
 
 time.sleep(1)
-print "hue"
+print("hue")
 a.setHue(5)
 
 time.sleep(1)
-print "sat"
+print("sat")
 a.setSaturation(4)
 
 time.sleep(1)
-print "sharp"
+print("sharp")
 a.setSharpness(5)
 
 time.sleep(1)
-print "pchp"
+print("pchp")
 a.setPCHPosition(6)
 
 time.sleep(1)
-print "pcvp"
+print("pcvp")
 a.setPCVPosition(6)
 
 time.sleep(1)
-print "pcclock"
+print("pcclock")
 a.setPCClock(6)
 
 time.sleep(1)
-print "pcphase"
+print("pcphase")
 a.setPCPhase(6)
 
 time.sleep(1)
-print "red"
+print("red")
 a.setRed(1)
 
 time.sleep(1)
-print "green"
+print("green")
 a.setGreen(1)
 
 time.sleep(1)
-print "blue"
+print("blue")
 a.setBlue(9)
 
 time.sleep(1)
-print "osdhpos"
+print("osdhpos")
 a.setOSDHPosition(23)
 
 time.sleep(1)
-print "osdvpos"
+print("osdvpos")
 a.setOSDVPosition(12)
 
 time.sleep(1)
-print "osdtime"
+print("osdtime")
 a.setOSDTimeout(6)
 
 time.sleep(1)
-print "osdback"
+print("osdback")
 a.setOSDTimeout(70)
 
 #print "reset"

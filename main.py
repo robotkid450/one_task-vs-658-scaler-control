@@ -24,8 +24,8 @@
 
 
 #from Tkinter import *
-import Tkinter as tk
-import tkMessageBox
+import tkinter as tk
+import tkinter.messagebox
 import vs_control as vsc
 
 class Application(tk.Frame):
@@ -86,14 +86,14 @@ class Application(tk.Frame):
             Title = "Power ON?"
         else:
             return -1
-        return (tkMessageBox.askokcancel(Title, message))
+        return (tkinter.messagebox.askokcancel(Title, message))
 
     def powerON(self):
         confim = self._powerConf(0)
         if confim == True:
-            print "true"
+            print("true")
         else:
-            print "false"
+            print("false")
 
 
 def main(args):

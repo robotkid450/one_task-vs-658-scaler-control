@@ -100,7 +100,7 @@ class scaler_connection:
             # will add actual error condition later,
             # when I can test with hardware.
             self.serialConnected = -1
-            print "error connecting to device"
+            print("error connecting to device")
 
         else:
             self.serialConnected = 1
@@ -113,23 +113,23 @@ class scaler_connection:
             self.port.close()
         except:
             self.serialConnected = -1
-            print "error disconecting ??"
+            print("error disconecting ??")
         else:
-            print "serial disconected"
+            print("serial disconected")
             self.serialConnected = 0
 
     def _sendCommand(self, command):
         if self.serialConnected != 1:
-            print "not connected"
+            print("not connected")
             self._connect()
         command = command + '\r'
         # encodes and sends command to scaler
-        print command
+        print(command)
         self.port.write(command.encode())
 
     def _readline(self):
         time.sleep(.5)
-        print self.port.inWaiting()
+        print((self.port.inWaiting()))
         msg = self.port.read(self.port.inWaiting() + 2)
 
         return msg
@@ -137,8 +137,8 @@ class scaler_connection:
     def _readresponce(self):
         responceRaw = self._readline()
         responceRaw = responceRaw[2:-2]
-        print "responceRaw"
-        print responceRaw
+        print("responceRaw")
+        print(responceRaw)
         data = responceRaw.split(' ')
         return data
 
