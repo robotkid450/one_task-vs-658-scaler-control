@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  main.py
@@ -42,7 +42,7 @@ class Application(tk.Frame):
 
         self.powerFrame.powerONButton = tk.Button(self.powerFrame)
         self.powerFrame.powerONButton['state'] = tk.DISABLED
-        self.powerFrame.powerONButton['command'] = self.powerON
+        #self.powerFrame.powerONButton['command'] = self.powerON
         self.powerFrame.powerONButton['text'] = "Power ON"
         self.powerFrame.powerONButton['fg'] = "green"
         self.powerFrame.powerONButton.grid(column=0, row=0)
@@ -68,11 +68,16 @@ class Application(tk.Frame):
 
         self.sourceFrame.mb.menu = tk.Menu(self.sourceFrame.mb)
         self.sourceFrame.mb['menu'] = self.sourceFrame.mb.menu
-        self.sourceFrame.mb.menu.add_radiobutton(label='input 1')
+        self.sourceVar = tk.StringVar()
+        self.sourceFrame.mb.menu.add_radiobutton(label='CV', variable=self.sourceVar, value='CV')
+        self.sourceFrame.mb.menu.add_radiobutton(label='YC', variable=self.sourceVar, value='YC')
+        self.sourceFrame.mb.menu.add_radiobutton(label='YPbPr', variable=self.sourceVar, value='YPbPr')
+        self.sourceFrame.mb.menu.add_radiobutton(label='RGB', variable=self.sourceVar, value='RGB')
+        self.sourceFrame.mb.menu.add_radiobutton(label='HDMI', variable=self.sourceVar, value='HDMI')
 
         #self.sourceFrame.mb.menu.grid()
 
-
+    #def _
 
 
     def _connectSerial(self, port):
