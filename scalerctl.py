@@ -27,9 +27,9 @@ import sys
 import argparse
 
 
-scalerSources = ['CV', 'YC', 'YPrPb', 'RGB', 'HDMI']
-scalerResolutions = ['Native', 'VGA', 'SVGA', 'XVGA', 'SXGA', 'UXGA', '480I', '480P', '720P', '1080i', '1080P', 'WXGA', 'WSXGA', 'WUXGA', 'XGA+']
-scalerModes = ['FULL', 'OVERSCAN', 'UNDERSCAN', 'LETTERBOX', 'PANSCAN', 'FOLLOW-INPUT']
+scalerSources = ['CV', 'YC', 'YPrPb', 'VGA', 'HDMI']
+scalerResolutions = ['Native', 'VGA', 'SVGA', 'XVGA', 'SXGA', 'UXGA', '480I', '480P', '720P60', '1080I60', '1080P60', 'WXGA', 'WSXGA', 'WUXGA', 'XGA+']
+scalerModes = ['FULL', 'OVERSCAN', 'UNDERSCAN', 'LETTERBOX', 'PANSCAN', 'FOLLOW']
 
 
 
@@ -44,7 +44,7 @@ parserScaling = subparsers.add_parser("scaling", help="Set scaling mode used.")
 parserScaling.add_argument("scaling_mode", help="Sets scaling mode.", choices=scalerModes)
 
 args = parser.parse_args()
-print(args)
+#print(args)
 
 vargs = vars(args)
 
@@ -55,9 +55,19 @@ for x in vargs:
     command = x
     data = vargs[x]
 
-print(device)
-print(command)
-print(data)
+#print(device)
+#print(command)
+#print(data)
 
 
+sc = vs.scaler_connection(device)
+sc._connect()
 
+if command == 'Video_source':
+    sc.setSource(data)
+    
+if command == 'Video_resolution':
+    sc.setOutput(data)
+
+if command == 'scaling_mode':
+    sc.setSize(data)
