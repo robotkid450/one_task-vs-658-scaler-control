@@ -23,3 +23,30 @@
 #
 
 import vs_control as vs
+import sys
+import argparse
+
+scalerSources = ['CV', 'YC', 'YPrPb', 'RGB', 'HDMI']
+scalerResolutions = ['Native', 'VGA', 'SVGA', 'XVGA', 'SXGA', 'UXGA', '480I', '480P', '720P', '1080i', '1080P', 'WXGA', 'WSXGA', 'WUXGA', 'XGA+']
+scalerModes = ['FULL', 'OVERSCAN', 'UNDERSCAN', 'LETTERBOX', 'PANSCAN', 'FOLLOW-INPUT']
+
+def sel_input(args):
+    print('abc')
+    
+
+
+
+parser = argparse.ArgumentParser(description='Control tv one task 658 scaler via RS-232')
+parser.add_argument('-d', '--device', help="Serial port that is connected to scaler.", required=True)
+subparsers = parser.add_subparsers()
+parserInput = subparsers.add_parser("source", help="Select which input the scaler should use.")
+parserInput.add_argument("Video_source", help="The video source used by the scaler  WIP: List all inputs", choices=scalerSources)
+parserResolution = subparsers.add_parser("resolution", help="Set the resolution the scaler outputs.")
+parserResolution.add_argument("Video_resolution", help="Set output resolution of scaler.", choices=scalerResolutions)
+parserScaling = subparsers.add_parser("scaling", help="Set scaling mode used.")
+parserScaling.add_argument("scaling_mode", help="Sets scaling mode.", choies=scalerModes)
+
+args = parser.parse_args()
+#print(args.Video_source)
+
+
