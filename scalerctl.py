@@ -26,13 +26,10 @@ import vs_control as vs
 import sys
 import argparse
 
+
 scalerSources = ['CV', 'YC', 'YPrPb', 'RGB', 'HDMI']
 scalerResolutions = ['Native', 'VGA', 'SVGA', 'XVGA', 'SXGA', 'UXGA', '480I', '480P', '720P', '1080i', '1080P', 'WXGA', 'WSXGA', 'WUXGA', 'XGA+']
 scalerModes = ['FULL', 'OVERSCAN', 'UNDERSCAN', 'LETTERBOX', 'PANSCAN', 'FOLLOW-INPUT']
-
-def sel_input(args):
-    print('abc')
-    
 
 
 
@@ -44,9 +41,23 @@ parserInput.add_argument("Video_source", help="The video source used by the scal
 parserResolution = subparsers.add_parser("resolution", help="Set the resolution the scaler outputs.")
 parserResolution.add_argument("Video_resolution", help="Set output resolution of scaler.", choices=scalerResolutions)
 parserScaling = subparsers.add_parser("scaling", help="Set scaling mode used.")
-parserScaling.add_argument("scaling_mode", help="Sets scaling mode.", choies=scalerModes)
+parserScaling.add_argument("scaling_mode", help="Sets scaling mode.", choices=scalerModes)
 
 args = parser.parse_args()
-#print(args.Video_source)
+print(args)
+
+vargs = vars(args)
+
+device = vargs['device']
+del vargs['device']
+
+for x in vargs:
+    command = x
+    data = vargs[x]
+
+print(device)
+print(command)
+print(data)
+
 
 
