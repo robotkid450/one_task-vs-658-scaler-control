@@ -139,7 +139,7 @@ class scaler_connection:
         responceRaw = responceRaw[2:-2]
         print("responceRaw")
         print(responceRaw)
-        data = responceRaw.split(' ')
+        data = responceRaw.decode().split(' ')
         return data
 
     def _getStatus(self, command):
