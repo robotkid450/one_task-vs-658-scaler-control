@@ -28,11 +28,14 @@ import tkinter as tk
 import tkinter.messagebox
 import vs_control as vsc
 
+
+device='/dev/ttyUSB0'
+
 class Application(tk.Frame):
     def __init__(self, master=None):
         self.connected = False
         
-        self.sc = vsc.scaler_connection('a') # add actual device later
+        self.sc = vsc.scaler_connection(device)
 
         self.root = tk.Frame.__init__(self, master)
         self.grid()
@@ -62,6 +65,8 @@ class Application(tk.Frame):
         self.inputCtlFrame = tk.Frame(self.root)
         self.inputCtlFrame.grid(column=0, row=1)
         
+        self.sourceVar = tk.StringVar()
+        
         #create source menu
         self.inputCtlFrame.MbSource = tk.Menubutton(self.inputCtlFrame, text="Source")
         self.inputCtlFrame.MbSource.grid(column=0, row=1)
@@ -69,11 +74,10 @@ class Application(tk.Frame):
         self.inputCtlFrame.MbSource.menu = tk.Menu(self.inputCtlFrame.MbSource)
         self.inputCtlFrame.MbSource['menu'] = self.inputCtlFrame.MbSource.menu
         
-        self.sourceVar = tk.StringVar()
         
         #create source menu items
         for item in self.sc.translationTableSet["source"]:
-            self.inputCtlFrame.MbSource.menu.add_radiobutton(label=item, variable=self.sourceVar, value=item)
+            self.inputCtlFrame.MbSource.menu.add_radiobutton(label=item, variable=self.sourceVar, value=item, command=self.setSource)
         
         #create Resolution menu
         self.inputCtlFrame.MbResolution = tk.Menubutton(self.inputCtlFrame, text="Resolution")
@@ -125,6 +129,11 @@ class Application(tk.Frame):
             print("true")
         else:
             print("false")
+            
+    def setSource(self):
+        print('set source')
+        print(self.sourceVar.get())
+        return 0
 
 
 def main(args):
