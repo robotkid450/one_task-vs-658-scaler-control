@@ -60,11 +60,9 @@ class Application(tk.Frame):
         self.sourceFrame = tk.Frame(self.root)
         self.sourceFrame.grid(column=0, row=1)
 
-        self.sourceFrame.labelName = tk.Label(self.sourceFrame, text="NOM")
-        self.sourceFrame.labelName.grid(column=0, row=1)
 
         self.sourceFrame.mb = tk.Menubutton(self.sourceFrame, text="Source")
-        self.sourceFrame.mb.grid(column=0, row=2)
+        self.sourceFrame.mb.grid(column=0, row=1)
 
         self.sourceFrame.mb.menu = tk.Menu(self.sourceFrame.mb)
         self.sourceFrame.mb['menu'] = self.sourceFrame.mb.menu
@@ -74,6 +72,10 @@ class Application(tk.Frame):
         self.sourceFrame.mb.menu.add_radiobutton(label='YPbPr', variable=self.sourceVar, value='YPbPr')
         self.sourceFrame.mb.menu.add_radiobutton(label='RGB', variable=self.sourceVar, value='RGB')
         self.sourceFrame.mb.menu.add_radiobutton(label='HDMI', variable=self.sourceVar, value='HDMI')
+        
+        
+        
+        
 
         #self.sourceFrame.mb.menu.grid()
 
