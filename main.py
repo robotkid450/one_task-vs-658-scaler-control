@@ -99,11 +99,11 @@ class Application(tk.Frame):
         self.inputCtlFrame.MbSize.menu = tk.Menu(self.inputCtlFrame.MbSize)
         self.inputCtlFrame.MbSize['menu'] = self.inputCtlFrame.MbSize.menu
         
-        self.resolutionVar = tk.StringVar()
+        self.sizeVar = tk.StringVar()
         
         #create scaling menu items
         for item in self.sc.translationTableSet["size"]:
-            self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item)
+            self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.sizeVar, value=item)
         
         
 
