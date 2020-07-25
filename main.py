@@ -31,6 +31,8 @@ import vs_control as vsc
 class Application(tk.Frame):
     def __init__(self, master=None):
         self.connected = False
+        
+        self.sc = vsc.scaler_connection('a')
 
         self.root = tk.Frame.__init__(self, master)
         self.grid()
@@ -65,7 +67,7 @@ class Application(tk.Frame):
         self.inputCtlFrame.MbSource.grid(column=0, row=1)
 
         self.inputCtlFrame.MbSource.menu = tk.Menu(self.inputCtlFrame.MbSource)
-        self.inputCtlFrame.MbSource['menu_source'] = self.inputCtlFrame.MbSource.menu
+        self.inputCtlFrame.MbSource['menu'] = self.inputCtlFrame.MbSource.menu
         self.sourceVar = tk.StringVar()
         self.inputCtlFrame.MbSource.menu.add_radiobutton(label='CV', variable=self.sourceVar, value='CV')
         self.inputCtlFrame.MbSource.menu.add_radiobutton(label='YC', variable=self.sourceVar, value='YC')
@@ -73,6 +75,17 @@ class Application(tk.Frame):
         self.inputCtlFrame.MbSource.menu.add_radiobutton(label='RGB', variable=self.sourceVar, value='RGB')
         self.inputCtlFrame.MbSource.menu.add_radiobutton(label='HDMI', variable=self.sourceVar, value='HDMI')
         
+        #create Resolution menu
+        self.inputCtlFrame.MbResolution = tk.Menubutton(self.inputCtlFrame, text="Resolution")
+        self.inputCtlFrame.MbResolution.grid(column=1, row=1)
+        
+        self.inputCtlFrame.MbResolution.menu = tk.Menu(self.inputCtlFrame.MbResolution)
+        self.inputCtlFrame.MbResolution['menu'] = self.inputCtlFrame.MbResolution.menu
+        
+        self.resolutionVar = tk.StringVar()
+        
+        for item in self.sc.translationTableSet["output"]:
+            self.inputCtlFrame.MbResolution.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item)
         
         
 
