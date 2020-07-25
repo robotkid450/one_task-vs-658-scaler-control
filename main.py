@@ -56,27 +56,25 @@ class Application(tk.Frame):
 
 
 
+        #create input control frame
+        self.inputCtlFrame = tk.Frame(self.root)
+        self.inputCtlFrame.grid(column=0, row=1)
+        
+        #create source menu
+        self.inputCtlFrame.MbSource = tk.Menubutton(self.inputCtlFrame, text="Source")
+        self.inputCtlFrame.MbSource.grid(column=0, row=1)
 
-        self.sourceFrame = tk.Frame(self.root)
-        self.sourceFrame.grid(column=0, row=1)
-
-        self.sourceFrame.mb = tk.Menubutton(self.sourceFrame, text="Source")
-        self.sourceFrame.mb.grid(column=0, row=1)
-
-        self.sourceFrame.mb.menu = tk.Menu(self.sourceFrame.mb)
-        self.sourceFrame.mb['menu'] = self.sourceFrame.mb.menu
+        self.inputCtlFrame.MbSource.menu = tk.Menu(self.inputCtlFrame.MbSource)
+        self.inputCtlFrame.MbSource['menu_source'] = self.inputCtlFrame.MbSource.menu
         self.sourceVar = tk.StringVar()
-        self.sourceFrame.mb.menu.add_radiobutton(label='CV', variable=self.sourceVar, value='CV')
-        self.sourceFrame.mb.menu.add_radiobutton(label='YC', variable=self.sourceVar, value='YC')
-        self.sourceFrame.mb.menu.add_radiobutton(label='YPbPr', variable=self.sourceVar, value='YPbPr')
-        self.sourceFrame.mb.menu.add_radiobutton(label='RGB', variable=self.sourceVar, value='RGB')
-        self.sourceFrame.mb.menu.add_radiobutton(label='HDMI', variable=self.sourceVar, value='HDMI')
+        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='CV', variable=self.sourceVar, value='CV')
+        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='YC', variable=self.sourceVar, value='YC')
+        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='YPbPr', variable=self.sourceVar, value='YPbPr')
+        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='RGB', variable=self.sourceVar, value='RGB')
+        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='HDMI', variable=self.sourceVar, value='HDMI')
         
         
         
-        
-
-        #self.sourceFrame.mb.menu.grid()
 
     #def _
 
