@@ -97,7 +97,7 @@ class Application(tk.Frame):
         
         self.resolutionVar = tk.StringVar()
         
-        #create Resolution menu items
+        #create scaling menu items
         for item in self.sc.translationTableSet["size"]:
             self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item)
         
