@@ -60,7 +60,6 @@ class Application(tk.Frame):
         self.sourceFrame = tk.Frame(self.root)
         self.sourceFrame.grid(column=0, row=1)
 
-
         self.sourceFrame.mb = tk.Menubutton(self.sourceFrame, text="Source")
         self.sourceFrame.mb.grid(column=0, row=1)
 
