@@ -4,7 +4,7 @@ import time
 
 class scaler_connection:
 
-    def __init__(self, serialport):
+    def __init__(self, serialport=None):
         # Configure serial port.
         # The scaler has a fixed port set up of 19200 8N1.
         self.rawPort = serialport
@@ -174,6 +174,10 @@ class scaler_connection:
 
     def _limitCheck(self, value, lower=0, upper=100):
         return bool(value >= lower and value <= upper)
+    
+    def setPort(self, port)
+        self.rawPort = port
+        return 0
 
     def setPower(self, power):
         return self._setCommandTable('power', power)
