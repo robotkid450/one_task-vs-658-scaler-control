@@ -32,7 +32,7 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         self.connected = False
         
-        self.sc = vsc.scaler_connection('a')
+        self.sc = vsc.scaler_connection('a') # add actual device later
 
         self.root = tk.Frame.__init__(self, master)
         self.grid()
@@ -68,12 +68,12 @@ class Application(tk.Frame):
 
         self.inputCtlFrame.MbSource.menu = tk.Menu(self.inputCtlFrame.MbSource)
         self.inputCtlFrame.MbSource['menu'] = self.inputCtlFrame.MbSource.menu
+        
         self.sourceVar = tk.StringVar()
-        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='CV', variable=self.sourceVar, value='CV')
-        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='YC', variable=self.sourceVar, value='YC')
-        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='YPbPr', variable=self.sourceVar, value='YPbPr')
-        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='RGB', variable=self.sourceVar, value='RGB')
-        self.inputCtlFrame.MbSource.menu.add_radiobutton(label='HDMI', variable=self.sourceVar, value='HDMI')
+        
+        #create source menu items
+        for item in self.sc.translationTableSet["source"]:
+            self.inputCtlFrame.MbSource.menu.add_radiobutton(label=item, variable=self.sourceVar, value=item)
         
         #create Resolution menu
         self.inputCtlFrame.MbResolution = tk.Menubutton(self.inputCtlFrame, text="Resolution")
@@ -84,8 +84,22 @@ class Application(tk.Frame):
         
         self.resolutionVar = tk.StringVar()
         
+        #create Resolution menu items
         for item in self.sc.translationTableSet["output"]:
             self.inputCtlFrame.MbResolution.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item)
+            
+        #create scaling menu
+        self.inputCtlFrame.MbSize = tk.Menubutton(self.inputCtlFrame, text="Scaling Mode")
+        self.inputCtlFrame.MbSize.grid(column=2, row=1)
+        
+        self.inputCtlFrame.MbSize.menu = tk.Menu(self.inputCtlFrame.MbSize)
+        self.inputCtlFrame.MbSize['menu'] = self.inputCtlFrame.MbSize.menu
+        
+        self.resolutionVar = tk.StringVar()
+        
+        #create Resolution menu items
+        for item in self.sc.translationTableSet["size"]:
+            self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item)
         
         
 
