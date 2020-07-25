@@ -72,10 +72,7 @@ class Application(tk.Frame):
         self.sourceFrame.mb.menu.add_radiobutton(label='RGB', variable=self.sourceVar, value='RGB')
         self.sourceFrame.mb.menu.add_radiobutton(label='HDMI', variable=self.sourceVar, value='HDMI')
         
-        self.resolutionFrame = tk.Fram(self.root)
-        self.resolutionFrame.grid(column=1, row=1)
-        self.resolutionFrame.mb = tk.Menubutton(self.resolutionFrame, text="Resolution")
-        self.resolutionFrame.mb.grid(column=0, row=1)
+        
         
         
 
