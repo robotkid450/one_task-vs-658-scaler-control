@@ -1,0 +1,19 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Exec=$HOME/one_task-vs-658-scaler-control/main.py
+GenericName[en_US]=Scaler Control
+GenericName=Scaler Control
+Icon=system-run
+MimeType=
+Name[en_US]=Scaler Control
+Name=Scaler Control
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
