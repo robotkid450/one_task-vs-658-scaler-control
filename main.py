@@ -35,7 +35,9 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         self.connected = False
         
-        self.sc = vsc.scaler_connection(device)
+        self.sc = vsc.scaler_connection(serialport=device)
+        
+        self._connectSerial()
 
         self.root = tk.Frame.__init__(self, master)
         self.grid()
@@ -110,7 +112,9 @@ class Application(tk.Frame):
     #def _
 
 
-    def _connectSerial(self, port):
+    def _connectSerial(self, port=device):
+        self.sc.setPort(port)
+        self.sc._connect()
         return 0
 
     def _powerConf(self, state):
@@ -133,16 +137,19 @@ class Application(tk.Frame):
     def setSource(self):
         print('set source')
         print(self.sourceVar.get())
+        self.sc.setSource(self.sourceVar.get())
         return 0
     
     def setResolution(self):
         print('set resolution')
         print(self.resolutionVar.get())
+        self.sc.setOutput(self.resolutionVar.get())
         return 0
     
     def setSize(self):
         print('set size')
         print(self.sizeVar.get())
+        self.sc.setSize(self.sizeVar.get())
         return 0
 
 
