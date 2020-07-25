@@ -90,7 +90,7 @@ class Application(tk.Frame):
         
         #create Resolution menu items
         for item in self.sc.translationTableSet["output"]:
-            self.inputCtlFrame.MbResolution.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item)
+            self.inputCtlFrame.MbResolution.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item, command=self.setResolution)
             
         #create scaling menu
         self.inputCtlFrame.MbSize = tk.Menubutton(self.inputCtlFrame, text="Scaling Mode")
@@ -103,7 +103,7 @@ class Application(tk.Frame):
         
         #create scaling menu items
         for item in self.sc.translationTableSet["size"]:
-            self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.sizeVar, value=item)
+            self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.sizeVar, value=item, command=self.setSize)
         
         
 
@@ -133,6 +133,16 @@ class Application(tk.Frame):
     def setSource(self):
         print('set source')
         print(self.sourceVar.get())
+        return 0
+    
+    def setResolution(self):
+        print('set resolution')
+        print(self.resolutionVar.get())
+        return 0
+    
+    def setSize(self):
+        print('set size')
+        print(self.sizeVar.get())
         return 0
 
 
