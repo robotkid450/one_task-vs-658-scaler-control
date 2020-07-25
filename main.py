@@ -23,7 +23,6 @@
 #
 
 
-#from Tkinter import *
 import tkinter as tk
 import tkinter.messagebox
 import vs_control as vsc
@@ -108,8 +107,6 @@ class Application(tk.Frame):
             self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.sizeVar, value=item, command=self.setSize)
         
         
-
-    #def _
 
 
     def _connectSerial(self, port=device):
