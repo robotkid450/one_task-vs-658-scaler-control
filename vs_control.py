@@ -175,7 +175,7 @@ class scaler_connection:
     def _limitCheck(self, value, lower=0, upper=100):
         return bool(value >= lower and value <= upper)
     
-    def setPort(self, port)
+    def setPort(self, port):
         self.rawPort = port
         return 0
 
