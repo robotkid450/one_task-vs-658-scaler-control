@@ -23,14 +23,20 @@
 #
 
 
-#from Tkinter import *
 import tkinter as tk
 import tkinter.messagebox
 import vs_control as vsc
 
+
+device='/dev/ttyUSB0'
+
 class Application(tk.Frame):
     def __init__(self, master=None):
         self.connected = False
+        
+        self.sc = vsc.scaler_connection(serialport=device)
+        
+        self._connectSerial()
 
         self.root = tk.Frame.__init__(self, master)
         self.grid()
@@ -56,31 +62,56 @@ class Application(tk.Frame):
 
 
 
-
-        self.sourceFrame = tk.Frame(self.root)
-        self.sourceFrame.grid(column=0, row=1)
-
-        self.sourceFrame.labelName = tk.Label(self.sourceFrame, text="NOM")
-        self.sourceFrame.labelName.grid(column=0, row=1)
-
-        self.sourceFrame.mb = tk.Menubutton(self.sourceFrame, text="Source")
-        self.sourceFrame.mb.grid(column=0, row=2)
-
-        self.sourceFrame.mb.menu = tk.Menu(self.sourceFrame.mb)
-        self.sourceFrame.mb['menu'] = self.sourceFrame.mb.menu
+        #create input control frame
+        self.inputCtlFrame = tk.Frame(self.root)
+        self.inputCtlFrame.grid(column=0, row=1)
+        
         self.sourceVar = tk.StringVar()
-        self.sourceFrame.mb.menu.add_radiobutton(label='CV', variable=self.sourceVar, value='CV')
-        self.sourceFrame.mb.menu.add_radiobutton(label='YC', variable=self.sourceVar, value='YC')
-        self.sourceFrame.mb.menu.add_radiobutton(label='YPbPr', variable=self.sourceVar, value='YPbPr')
-        self.sourceFrame.mb.menu.add_radiobutton(label='RGB', variable=self.sourceVar, value='RGB')
-        self.sourceFrame.mb.menu.add_radiobutton(label='HDMI', variable=self.sourceVar, value='HDMI')
+        
+        #create source menu
+        self.inputCtlFrame.MbSource = tk.Menubutton(self.inputCtlFrame, text="Source")
+        self.inputCtlFrame.MbSource.grid(column=0, row=1)
 
-        #self.sourceFrame.mb.menu.grid()
+        self.inputCtlFrame.MbSource.menu = tk.Menu(self.inputCtlFrame.MbSource)
+        self.inputCtlFrame.MbSource['menu'] = self.inputCtlFrame.MbSource.menu
+        
+        
+        #create source menu items
+        for item in self.sc.translationTableSet["source"]:
+            self.inputCtlFrame.MbSource.menu.add_radiobutton(label=item, variable=self.sourceVar, value=item, command=self.setSource)
+        
+        #create Resolution menu
+        self.inputCtlFrame.MbResolution = tk.Menubutton(self.inputCtlFrame, text="Resolution")
+        self.inputCtlFrame.MbResolution.grid(column=1, row=1)
+        
+        self.inputCtlFrame.MbResolution.menu = tk.Menu(self.inputCtlFrame.MbResolution)
+        self.inputCtlFrame.MbResolution['menu'] = self.inputCtlFrame.MbResolution.menu
+        
+        self.resolutionVar = tk.StringVar()
+        
+        #create Resolution menu items
+        for item in self.sc.translationTableSet["output"]:
+            self.inputCtlFrame.MbResolution.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item, command=self.setResolution)
+            
+        #create scaling menu
+        self.inputCtlFrame.MbSize = tk.Menubutton(self.inputCtlFrame, text="Scaling Mode")
+        self.inputCtlFrame.MbSize.grid(column=2, row=1)
+        
+        self.inputCtlFrame.MbSize.menu = tk.Menu(self.inputCtlFrame.MbSize)
+        self.inputCtlFrame.MbSize['menu'] = self.inputCtlFrame.MbSize.menu
+        
+        self.sizeVar = tk.StringVar()
+        
+        #create scaling menu items
+        for item in self.sc.translationTableSet["size"]:
+            self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.sizeVar, value=item, command=self.setSize)
+        
+        
 
-    #def _
 
-
-    def _connectSerial(self, port):
+    def _connectSerial(self, port=device):
+        self.sc.setPort(port)
+        self.sc._connect()
         return 0
 
     def _powerConf(self, state):
@@ -99,6 +130,24 @@ class Application(tk.Frame):
             print("true")
         else:
             print("false")
+            
+    def setSource(self):
+        print('set source')
+        print(self.sourceVar.get())
+        self.sc.setSource(self.sourceVar.get())
+        return 0
+    
+    def setResolution(self):
+        print('set resolution')
+        print(self.resolutionVar.get())
+        self.sc.setOutput(self.resolutionVar.get())
+        return 0
+    
+    def setSize(self):
+        print('set size')
+        print(self.sizeVar.get())
+        self.sc.setSize(self.sizeVar.get())
+        return 0
 
 
 def main(args):
