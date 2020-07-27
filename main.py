@@ -115,7 +115,6 @@ class Application(tk.Frame):
         except:
             pass
         
-
     def _createMenuScaling(self):
         #create scaling menu
         self.inputCtlFrame.MbSize = tk.Menubutton(self.inputCtlFrame, text="Scaling Mode")

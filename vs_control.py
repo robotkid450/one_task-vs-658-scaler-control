@@ -283,8 +283,6 @@ class scaler_connection:
         self._sendCommand('R SIZE')
         return self._readresponce()
     
-    
-    
     def getOSDNotice(self):
         self._sendCommand('R OSDNOTICE')
         return self._readresponce()
@@ -341,7 +339,7 @@ class scaler_connection:
         self._sendCommand('R RED')
         return self._readresponce()
     
-    def getGreen    (self):
+    def getGreen(self):
         self._sendCommand('R GREEN')
         return self._readresponce()
     
