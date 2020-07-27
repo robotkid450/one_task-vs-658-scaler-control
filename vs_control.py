@@ -139,6 +139,11 @@ class scaler_connection:
         responceRaw = responceRaw[2:-2]
         #print("responceRaw")
         #print(responceRaw)
+        
+        #This handles the idiotic desicion by the makers of this product to have the power off poll responce be in a different format from every other responce in the spec.
+        if responceRaw.decode() == 'Please turn on power. ( K POWER / S POWER ON ).':
+            return 'OFF'
+        
         data = responceRaw.decode().split(' ')
         
         data = data[2:][0]
