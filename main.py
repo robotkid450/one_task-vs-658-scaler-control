@@ -88,6 +88,13 @@ class Application(tk.Frame):
         #create source menu items
         for item in self.sc.translationTableSet["source"]:
             self.inputCtlFrame.MbSource.menu.add_radiobutton(label=item, variable=self.sourceVar, value=item, command=self.setSource)
+        
+        try:
+            source = self.sc.getSource()
+            self.sourceVar.set(source)
+        except:
+            pass
+        
             
     def _createMenuResolution(self):
         #create Resolution menu
@@ -102,6 +109,13 @@ class Application(tk.Frame):
         #create Resolution menu items
         for item in self.sc.translationTableSet["output"]:
             self.inputCtlFrame.MbResolution.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item, command=self.setResolution)
+            
+        try:
+            resolution = self.sc.getOutput()
+            self.resolutionVar.set(resolution)
+        except:
+            pass
+        
 
     def _createMenuScaling(self):
         #create scaling menu
@@ -116,6 +130,13 @@ class Application(tk.Frame):
         #create scaling menu items
         for item in self.sc.translationTableSet["size"]:
             self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.sizeVar, value=item, command=self.setSize)
+            
+            
+        try:
+            scaling = self.sc.getSize()
+            self.sizeVar.set(scaling)
+        except:
+            pass
 
 
     def _connectSerial(self, port=device):
