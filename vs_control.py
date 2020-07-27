@@ -54,7 +54,7 @@ class scaler_connection:
                 "UNDERSCAN": "s size 2",
                 "LETTERBOX": "s size 3",
                 "PANSCAN": "s size 4",
-                "FOLLOW": "s size 5"},
+                "FOLLOWINPUT": "s size 5"},
             "osd" : {
                 "INFO": "s osdnotice 0",
                 "OFF": "s osdnotice 1",
