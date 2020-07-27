@@ -140,6 +140,8 @@ class scaler_connection:
         #print("responceRaw")
         #print(responceRaw)
         data = responceRaw.decode().split(' ')
+        
+        data = data[2:][0]
         return data
 
     def _getStatus(self, command):
@@ -264,4 +266,102 @@ class scaler_connection:
         self._sendCommand("r power")
         output = self._readresponce()
         return output
+    
+    def getSource(self):
+        self._sendCommand('R SOURCE')
+        return self._readresponce()
+    
+    def getOutput(self):
+        self._sendCommand('R OUTPUT')
+        return self._readresponce()
+    
+    def getSize(self):
+        self._sendCommand('R SIZE')
+        return self._readresponce()
+    
+    
+    
+    def getOSDNotice(self):
+        self._sendCommand('R OSDNOTICE')
+        return self._readresponce()
+        
+    def getPictureMode(self):
+        self._sendCommand('R PICTUREMODE')
+        return self._readresponce()
+    
+    def getContrast(self):
+        self._sendCommand('R CONTRAST')
+        return self._readresponce()
+    
+    def getBrightness(self):
+        self._sendCommand('R BRIGHTNESS')
+        return self._readresponce()
+    
+    def getHue(self):
+        self._sendCommand('R HUE')
+        return self._readresponce()
+    
+    def getSaturation(self):
+        self._sendCommand('R SATURATION')
+        return self._readresponce()
+    
+    def getSharpness(self):
+        self._sendCommand('R SHARPNESS')
+        return self._readresponce()
+    
+    def getNr(self):
+        self._sendCommand('R NR')
+        return self._readresponce()
+    
+    def getPCHPosition(self):
+        self._sendCommand('R PCHPOSITION')
+        return self._readresponce()
+    
+    def getPCVPosition(self):
+        self._sendCommand('R PCVPOSITION')
+        return self._readresponce()
+    
+    def getPCClock(self):
+        self._sendCommand('R PCCLOCK')
+        return self._readresponce()
+    
+    def getPCPhase(self):
+        self._sendCommand('R PCPHASE')
+        return self._readresponce()
+    
+    def getColorTemp(self):
+        self._sendCommand('R COLORTEMP')
+        return self._readresponce()
+    
+    def getRed(self):
+        self._sendCommand('R RED')
+        return self._readresponce()
+    
+    def getGreen    (self):
+        self._sendCommand('R GREEN')
+        return self._readresponce()
+    
+    def getOSDHPosition(self):
+        self._sendCommand('R OSDHPOSITION')
+        return self._readresponce()
+    
+    def getOSDVPosition(self):
+        self._sendCommand('R OSDVPOSITION')
+        return self._readresponce()
+    
+    def getOSDTimeout(self):
+        self._sendCommand('R OSDTIMEOUT')
+        return self._readresponce()
+    
+    def getOSDBackground(self):
+        self._sendCommand('R OSDBACKGROUND')
+        return self._readresponce()
+    
+    def getAudioMute(self):
+        self._sendCommand('R AUDIOMUTE')
+        return self._readresponce()
+    
+    def getAudioDelay(self):
+        self._sendCommand('R AUDIODELAY')
+        return self._readresponce()
 
