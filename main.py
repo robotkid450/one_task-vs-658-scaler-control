@@ -43,6 +43,14 @@ class Application(tk.Frame):
         self.createWidgets()
 
     def createWidgets(self):
+        
+        self._createPower()
+        
+        self._createIOMenus()
+        
+        
+
+    def _createPower(self):
         self.powerFrame = tk.Frame(self.root)
         self.powerFrame.grid(column=0, row=0)
 
@@ -59,16 +67,22 @@ class Application(tk.Frame):
         self.powerFrame.powerOFFButton['text'] = "Power OFF"
         self.powerFrame.powerOFFButton['fg'] = "red"
         self.powerFrame.powerOFFButton.grid(column=1, row=0)
-
-
-
+        
+        
+    def _createIOMenus(self):
         #create input control frame
         self.inputCtlFrame = tk.Frame(self.root)
         self.inputCtlFrame.grid(column=0, row=1)
         
-        self.sourceVar = tk.StringVar()
+
+        self._createSourceMenu()
+        self._createResolutionMenu()
+        self._createScalingMenu()
         
+        
+    def _createSourceMenu(self):        
         #create source menu
+        self.sourceVar = tk.StringVar()
         self.inputCtlFrame.MbSource = tk.Menubutton(self.inputCtlFrame, text="Source")
         self.inputCtlFrame.MbSource.grid(column=0, row=1)
 
@@ -79,7 +93,8 @@ class Application(tk.Frame):
         #create source menu items
         for item in self.sc.translationTableSet["source"]:
             self.inputCtlFrame.MbSource.menu.add_radiobutton(label=item, variable=self.sourceVar, value=item, command=self.setSource)
-        
+            
+    def _createResolutionMenu(self):
         #create Resolution menu
         self.inputCtlFrame.MbResolution = tk.Menubutton(self.inputCtlFrame, text="Resolution")
         self.inputCtlFrame.MbResolution.grid(column=1, row=1)
@@ -92,7 +107,8 @@ class Application(tk.Frame):
         #create Resolution menu items
         for item in self.sc.translationTableSet["output"]:
             self.inputCtlFrame.MbResolution.menu.add_radiobutton(label=item, variable=self.resolutionVar, value=item, command=self.setResolution)
-            
+
+    def _createScalingMenu(self):
         #create scaling menu
         self.inputCtlFrame.MbSize = tk.Menubutton(self.inputCtlFrame, text="Scaling Mode")
         self.inputCtlFrame.MbSize.grid(column=2, row=1)
@@ -105,8 +121,6 @@ class Application(tk.Frame):
         #create scaling menu items
         for item in self.sc.translationTableSet["size"]:
             self.inputCtlFrame.MbSize.menu.add_radiobutton(label=item, variable=self.sizeVar, value=item, command=self.setSize)
-        
-        
 
 
     def _connectSerial(self, port=device):
