@@ -26,7 +26,6 @@ class scaler_connection:
                 "YC": "s source 1",
                 "COMP": "s source 2",
                 "PC": "s source 3",
-                "VGA": "s source 3",
                 "HDMI": "s source 4"},
             "output" : {
                 "NATIVE": "s output 0",
