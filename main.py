@@ -52,15 +52,15 @@ class Application(tk.Frame):
         self.powerFrame.grid(column=0, row=0)
 
         self.powerFrame.powerONButton = tk.Button(self.powerFrame)
-        self.powerFrame.powerONButton['state'] = tk.DISABLED
-        #self.powerFrame.powerONButton['command'] = self.powerON
+        #self.powerFrame.powerONButton['state'] = tk.DISABLED
+        self.powerFrame.powerONButton['command'] = self.powerON
         self.powerFrame.powerONButton['text'] = "Power ON"
         self.powerFrame.powerONButton['fg'] = "green"
         self.powerFrame.powerONButton.grid(column=0, row=0)
 
         self.powerFrame.powerOFFButton = tk.Button(self.powerFrame)
-        self.powerFrame.powerOFFButton['state'] = tk.DISABLED
-        #self.powerFrame.powerOFFButton['command'] = self.powerOFF
+        #self.powerFrame.powerOFFButton['state'] = tk.DISABLED
+        self.powerFrame.powerOFFButton['command'] = self.powerOFF
         self.powerFrame.powerOFFButton['text'] = "Power OFF"
         self.powerFrame.powerOFFButton['fg'] = "red"
         self.powerFrame.powerOFFButton.grid(column=1, row=0)
@@ -95,7 +95,6 @@ class Application(tk.Frame):
         except:
             pass
         
-            
     def _createMenuResolution(self):
         #create Resolution menu
         self.inputCtlFrame.MbResolution = tk.Menubutton(self.inputCtlFrame, text="Resolution")
@@ -146,20 +145,25 @@ class Application(tk.Frame):
 
     def _powerConf(self, state):
         message = "Are you sure?"
-        if state == 0:
+        if state == 1:
             Title = "Power OFF?"
-        elif state == 1:
+        elif state == 0:
             Title = "Power ON?"
         else:
             return -1
         return (tkinter.messagebox.askokcancel(Title, message))
 
     def powerON(self):
+        confim = self._powerConf(1)
+        if confim == True:
+            print("Powering on")
+            self.sc.setPower('on')
+            
+    def powerOFF(self):
         confim = self._powerConf(0)
         if confim == True:
-            print("true")
-        else:
-            print("false")
+            print("Powering off")
+            self.sc.setPower('off')
             
     def setSource(self):
         print('set source')
