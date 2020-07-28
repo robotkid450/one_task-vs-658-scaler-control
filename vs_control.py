@@ -127,9 +127,9 @@ class scaler_connection:
         self.port.write(command.encode())
 
     def _readline(self):
-        time.sleep(.5)
+        time.sleep(.05)
         #print((self.port.inWaiting()))
-        msg = self.port.read(self.port.inWaiting() + 2)
+        msg = self.port.read(self.port.inWaiting())
 
         return msg
 
