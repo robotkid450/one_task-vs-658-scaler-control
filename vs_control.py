@@ -121,17 +121,20 @@ class scaler_connection:
         if self.serialConnected != 1:
             #print("not connected")
             self._connect()
+        self.port.reset_input_buffer()
+        self.port.reset_output_buffer()
         command = command + '\r'
         # encodes and sends command to scaler
         #print(command)
         self.port.write(command.encode())
 
     def _readline(self):
-        time.sleep(.05)
-        #print((self.port.inWaiting()))
-        msg = self.port.read(self.port.inWaiting())
-
-        return msg
+        wait = self.port.inWaiting()
+        while wait == 0:
+            wait = self.port.inWaiting()
+            
+        time.sleep(.05) #allows for buffer to fill. Scaler doesn't output data at a steady rate all of the time. When it slows down its data output the program can empty the buffer before the scaler adds more data to the buffer.
+        return self.port.read(self.port.inWaiting())
 
     def _readresponce(self):
         responceRaw = self._readline()

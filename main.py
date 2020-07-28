@@ -65,6 +65,21 @@ class Application(tk.Frame):
         self.powerFrame.powerOFFButton['fg'] = "red"
         self.powerFrame.powerOFFButton.grid(column=1, row=0)
         
+        try:
+            power = self.sc.getPower()
+        except:
+            return
+        
+        if power == 'ON':
+            self.powerFrame.powerONButton['state'] = tk.DISABLED
+            self.powerFrame.powerOFFButton['state'] = tk.NORMAL
+        elif power == 'OFF':
+            self.powerFrame.powerONButton['state'] = tk.NORMAL
+            self.powerFrame.powerOFFButton['state'] = tk.DISABLED
+        else:
+            self.powerFrame.powerONButton['state'] = tk.NORMAL
+            self.powerFrame.powerOFFButton['state'] = tk.NORMAL
+        
     def _createIOMenus(self):
         #create input control frame
         self.inputCtlFrame = tk.Frame(self.root)
@@ -155,13 +170,17 @@ class Application(tk.Frame):
     def powerON(self):
         confim = self._powerConf(1)
         if confim == True:
-            print("Powering on")
+            #print("Powering on")
+            self.powerFrame.powerONButton['state'] = tk.DISABLED
+            self.powerFrame.powerOFFButton['state'] = tk.NORMAL
             self.sc.setPower('on')
             
     def powerOFF(self):
         confim = self._powerConf(0)
         if confim == True:
-            print("Powering off")
+            #print("Powering off")
+            self.powerFrame.powerONButton['state'] = tk.NORMAL
+            self.powerFrame.powerOFFButton['state'] = tk.DISABLED
             self.sc.setPower('off')
             
     def setSource(self):
